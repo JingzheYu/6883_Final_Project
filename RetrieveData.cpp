@@ -1,3 +1,4 @@
+
 #include <stdio.h>
 #include <iostream>
 #include <fstream>
@@ -30,8 +31,7 @@ void ReadCsv(string filename, vector<string>& tickerList, map<string,
         double actEPS = strtod(sActEPS.c_str(), NULL);
         double estEPS = strtod(sEstEPS.c_str(), NULL);
         double surp = strtod(sSurp.c_str(), NULL);
-        tickerList.push_back(ticker); // push the current ticker into the list
-        // create a new pair to save the information for this stock
+        tickerList.push_back(ticker);
         tickerMap[ticker] = Stock(group, actEPS, estEPS, surp,
                                   DayZero, StartTime, EndTime);
     }
@@ -166,8 +166,7 @@ int RetrieveFromYahoo(map<string, Stock>& tickerMap)
             if (itr == tickerMap.end())
                 break;
             
-            // get start and end time from the stock object
-            string StartTime_ = itr->second.GetStartTime(); 
+            string StartTime_ = itr->second.GetStartTime();
             string EndTime_ = itr->second.GetEndTime();
             string startTime = getTimeinSeconds(StartTime_);
             string endTime = getTimeinSeconds(EndTime_);
@@ -182,7 +181,6 @@ int RetrieveFromYahoo(map<string, Stock>& tickerMap)
             const char * cookies = sCookies.c_str();
             curl_easy_setopt(handle, CURLOPT_COOKIE, cookies);   // Only needed for 1st stock
             curl_easy_setopt(handle, CURLOPT_URL, cURL);
-            
             curl_easy_setopt(handle, CURLOPT_WRITEFUNCTION, write_data2);
             curl_easy_setopt(handle, CURLOPT_WRITEDATA, (void *)&data);
             result = curl_easy_perform(handle);
@@ -256,6 +254,7 @@ int RetrieveSPY(map<string, double>& SPYPriceList)
         string sCookies, sCrumb;
         if (sCookies.length() == 0 || sCrumb.length() == 0)
         {
+            //curl_easy_setopt(handle, CURLOPT_URL, "https://finance.yahoo.com/quote/AMZN/history?p=AMZN");
             curl_easy_setopt(handle, CURLOPT_URL, "https://finance.yahoo.com/quote/AMZN/history");
             curl_easy_setopt(handle, CURLOPT_SSL_VERIFYPEER, 0);
             curl_easy_setopt(handle, CURLOPT_SSL_VERIFYHOST, 0);
@@ -296,7 +295,6 @@ int RetrieveSPY(map<string, double>& SPYPriceList)
             sCookies = cCookies;
             
         }
-
         free(data.memory);
         data.memory = NULL;
         data.size = 0;
@@ -315,7 +313,7 @@ int RetrieveSPY(map<string, double>& SPYPriceList)
         string url = urlA + symbol + urlB + startTime + urlC + endTime + urlD + sCrumb;
         const char * cURL = url.c_str();
         const char * cookies = sCookies.c_str();
-        curl_easy_setopt(handle, CURLOPT_COOKIE, cookies);
+        curl_easy_setopt(handle, CURLOPT_COOKIE, cookies);   // Only needed for 1st stock
         curl_easy_setopt(handle, CURLOPT_URL, cURL);
         
         curl_easy_setopt(handle, CURLOPT_WRITEFUNCTION, write_data2);

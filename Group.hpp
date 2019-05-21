@@ -1,3 +1,5 @@
+
+
 #ifndef Group_hpp
 #define Group_hpp
 
@@ -11,7 +13,7 @@ class Group{
 private:
     vector<string> tickerlist; //a vector containing all the ticker of the stocks in that Group
     vector<double> AvgCAAR;
-    map<string,Stock> MyStock;
+    map<string,Stock> MyStock;// Map that contains the randomly selected stocks
     vector<double> AvgAAR;
     int num;
 public:

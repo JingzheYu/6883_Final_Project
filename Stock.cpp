@@ -1,3 +1,4 @@
+
 #include "Stock.hpp"
 #include <iostream>
 using namespace std;
@@ -47,3 +48,5 @@ void Stock::Display() const
     }
     cout << endl;
 }
+
+

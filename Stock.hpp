@@ -1,3 +1,5 @@
+
+
 #ifndef Stock_hpp
 #define Stock_hpp
 
@@ -36,7 +38,8 @@ public:
     
     
 };
-
+// Calculate SPY return
 map<string, double>* CalReturn(map<string, double> SPY);
 
 #endif
+
